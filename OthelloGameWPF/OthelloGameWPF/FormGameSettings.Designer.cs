@@ -41,6 +41,7 @@
             this.BoardSizeButton.TabIndex = 0;
             this.BoardSizeButton.Text = "Board Size: 6x6 (click to increase)";
             this.BoardSizeButton.UseVisualStyleBackColor = true;
+            this.BoardSizeButton.Click += new System.EventHandler(this.btnBoardSize_Click);
             // 
             // PlayAgainstComputerButton
             // 
@@ -50,6 +51,7 @@
             this.PlayAgainstComputerButton.TabIndex = 1;
             this.PlayAgainstComputerButton.Text = "Play against the computer";
             this.PlayAgainstComputerButton.UseVisualStyleBackColor = true;
+            this.BoardSizeButton.Click += new System.EventHandler(this.btnPlayAgainstComputer_Click);
             // 
             // PlayAgainstFriendButton
             // 
@@ -59,6 +61,8 @@
             this.PlayAgainstFriendButton.TabIndex = 2;
             this.PlayAgainstFriendButton.Text = "Play against your friend";
             this.PlayAgainstFriendButton.UseVisualStyleBackColor = true;
+            this.BoardSizeButton.Click += new System.EventHandler(this.btnPlayAgainstFriend_Click);
+
             // 
             // GameSettings
             // 

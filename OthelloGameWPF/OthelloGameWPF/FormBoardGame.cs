@@ -28,7 +28,16 @@ namespace OthelloGameWPF
             m_IsPlayingAgainstComputer = isPlayingAgainstComputer;
 
             m_Player1 = new Player("Player 1", 0, eColor.Black);
-            m_Player2 = isPlayingAgainstComputer ? (Player)new Computer("Computer", 0, eColor.White) : new Player("Player 2", 0, eColor.White);
+
+            if (isPlayingAgainstComputer)
+            {
+                m_Computer = new Computer("Computer", 0, eColor.White);
+            }
+            else
+            {
+                m_Player2 = new Player("Player 2", 0, eColor.White);
+            }
+
             m_CurrentPlayer = m_Player1;
             Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
 
@@ -232,7 +241,6 @@ namespace OthelloGameWPF
             HighlightValidMoves();
         }
 
-
         private bool hasValidMoves(Player i_Player)
         {
             bool hasValidMoves = false;
@@ -251,6 +259,15 @@ namespace OthelloGameWPF
             return hasValidMoves;
         }
 
+        private bool isValidCell(Coordinate i_CellCoordinate, Player i_Player)
+        {
+            return BoardValidator.CellIsValid(
+                i_CellCoordinate,
+                i_Player.Color,
+                BoardValidator.IdentifyAllEdges(i_CellCoordinate, i_Player.Color, m_Board),
+                m_Board);
+        }
+
         private void switchPlayers()
         {
             if (m_CurrentPlayer == m_Player1 && hasValidMoves(m_IsPlayingAgainstComputer ? m_Computer : m_Player2))
@@ -265,13 +282,5 @@ namespace OthelloGameWPF
 
             Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
         }
-
-        private bool isValidCell(Coordinate i_CellCoordinate, Player i_Player)
-        {
-            return BoardValidator.CellIsValid(i_CellCoordinate, i_Player.Color,
-                BoardValidator.IdentifyAllEdges(i_CellCoordinate, i_Player.Color, m_Board),
-                m_Board);
-        }
-
     }
 }

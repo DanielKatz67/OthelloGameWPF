@@ -193,15 +193,19 @@ namespace OthelloGameWPF
             string winnerMessage;
             if (m_Player1.Score > m_Player2.Score)
             {
-                winnerMessage = $"Black Won!! ({m_Player1.Score}/{m_Player2.Score})";
+                m_Player1.WinsCount++;
+                winnerMessage = $"Black Won!! ({m_Player1.Score}/{m_Player2.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
             }
             else if (m_Player2.Score > m_Player1.Score)
             {
-                winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score})";
+                m_Player2.WinsCount++;
+                winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
             }
             else
             {
-                winnerMessage = $"It's a Tie!! ({m_Player1.Score}/{m_Player2.Score})";
+                m_Player1.WinsCount++;
+                m_Player2.WinsCount++;
+                winnerMessage = $"It's a Tie!! ({m_Player1.Score}/{m_Player2.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
             }
 
             DialogResult result = MessageBox.Show($"{winnerMessage}\nWould you like another round?",

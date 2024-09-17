@@ -5,6 +5,7 @@ namespace OthelloGameLogic
         private readonly eColor r_Color;
         private readonly string r_Name;
         private int m_Score;
+        private int m_WinsCount = 0;
 
         public eColor Color
         {
@@ -31,6 +32,18 @@ namespace OthelloGameLogic
             set
             {
                 m_Score = value;
+            }
+        }
+
+        public int WinsCount
+        {
+            get
+            {
+                return m_WinsCount;
+            }
+            set
+            {
+                m_WinsCount = value;
             }
         }
 

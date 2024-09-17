@@ -1,4 +1,4 @@
-namespace Ex05_OthelloGameLogic;
+namespace OthelloGameLogic;
 
 public class Player
 {

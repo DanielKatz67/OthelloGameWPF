@@ -12,30 +12,41 @@ namespace OthelloGameWPF
 {
     public partial class FormGameSettings : Form
     {
-        private int m_boardSize = 6;
+        private int boardSize = 6;
 
         public FormGameSettings()
         {
             InitializeComponent();
-            UpdateBoardSizeButtonText();
         }
 
-        public int BoardSize
+        private void btnBoardSize_Click(object sender, EventArgs e)
         {
-            get
+            boardSize += 2;
+            if (boardSize > 12)
             {
-                return m_boardSize;
+                boardSize = 6; // Reset to 6x6 after reaching 12x12
             }
-            set
-            {
-                m_boardSize = value;
-                UpdateBoardSizeButtonText();
-            }
+            BoardSizeButton.Text = $"Board Size: {boardSize}x{boardSize} (click to increase)";
         }
 
-        private void UpdateBoardSizeButtonText()
+        // Event handler to start the game against the computer
+        private void btnPlayAgainstComputer_Click(object sender, EventArgs e)
         {
-            this.BoardSizeButton.Text = $"Board Size: {this.BoardSize}x{this.BoardSize} (click to increase)";
+            this.Hide();
+            // Pass the board size and true (for playing against the computer)
+            FormBoardGame boardGameForm = new FormBoardGame(boardSize, true);
+            boardGameForm.ShowDialog();
+            this.Close();
+        }
+
+        // Event handler to start the game against a friend
+        private void btnPlayAgainstFriend_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            // Pass the board size and false (for playing against a friend)
+            FormBoardGame boardGameForm = new FormBoardGame(boardSize, false);
+            boardGameForm.ShowDialog();
+            this.Close();
         }
     }
 }

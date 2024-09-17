@@ -46,14 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OtheloGameForm.cs">
+    <Compile Include="FormBoardGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormGameBoard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormGameBoard.Designer.cs">
-      <DependentUpon>FormGameBoard.cs</DependentUpon>
+    <Compile Include="FormBoardGame.Designer.cs">
+      <DependentUpon>FormBoardGame.cs</DependentUpon>
     </Compile>
     <Compile Include="FormGameSettings.cs">
       <SubType>Form</SubType>
@@ -64,8 +61,8 @@
     <Compile Include="OtheloGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormGameBoard.resx">
-      <DependentUpon>FormGameBoard.cs</DependentUpon>
+    <EmbeddedResource Include="FormBoardGame.resx">
+      <DependentUpon>FormBoardGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormGameSettings.resx">
       <DependentUpon>FormGameSettings.cs</DependentUpon>

@@ -51,7 +51,7 @@
             this.PlayAgainstComputerButton.TabIndex = 1;
             this.PlayAgainstComputerButton.Text = "Play against the computer";
             this.PlayAgainstComputerButton.UseVisualStyleBackColor = true;
-            this.BoardSizeButton.Click += new System.EventHandler(this.btnPlayAgainstComputer_Click);
+            this.PlayAgainstComputerButton.Click += new System.EventHandler(this.btnPlayAgainstComputer_Click);
             // 
             // PlayAgainstFriendButton
             // 
@@ -61,7 +61,7 @@
             this.PlayAgainstFriendButton.TabIndex = 2;
             this.PlayAgainstFriendButton.Text = "Play against your friend";
             this.PlayAgainstFriendButton.UseVisualStyleBackColor = true;
-            this.BoardSizeButton.Click += new System.EventHandler(this.btnPlayAgainstFriend_Click);
+            this.PlayAgainstFriendButton.Click += new System.EventHandler(this.btnPlayAgainstFriend_Click);
 
             // 
             // GameSettings

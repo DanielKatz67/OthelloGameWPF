@@ -27,10 +27,10 @@ namespace OthelloGameWPF
             m_Board = new Board(boardSize, boardSize);
             m_IsPlayingAgainstComputer = isPlayingAgainstComputer;
 
-            // Initialize players
             m_Player1 = new Player("Player 1", 0, eColor.Black);
             m_Player2 = isPlayingAgainstComputer ? (Player)new Computer("Computer", 0, eColor.White) : new Player("Player 2", 0, eColor.White);
             m_CurrentPlayer = m_Player1;
+            Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
 
             InitializeBoardButtons(boardSize);
             UpdateBoardUI();
@@ -58,10 +58,12 @@ namespace OthelloGameWPF
                 {
                     Button btn = new Button
                     {
-                        Dock = DockStyle.Fill,  // Make the button fill its cell in the TableLayoutPanel
-                        Margin = new Padding(1),  // Add some spacing between the buttons
-                        Tag = new Coordinate(rowIndex, colIndex)  // Store the coordinates in the Tag
+                        Dock = DockStyle.Fill,  
+                        Margin = new Padding(1),  
+                        Tag = new Coordinate(rowIndex, colIndex) 
                     };
+
+                    btn.UseCompatibleTextRendering = true;
                     btn.Click += BoardButton_Click;
                     boardPanel.Controls.Add(btn, colIndex, rowIndex);
                 }
@@ -89,28 +91,20 @@ namespace OthelloGameWPF
                 Coordinate cell = (Coordinate)btn.Tag;
                 char piece = m_Board.Cell(cell);
 
-                if (piece == '\0')
+                if (piece == 'x')
                 {
-                    btn.Text = "";
-                    btn.BackColor = SystemColors.Control;  // Reset to default background
-                    btn.ForeColor = Color.Black;  // Default text color
+                    btn.Text = "o";
+                    btn.BackColor = Color.Black;
+                    btn.ForeColor = Color.White;
+
                 }
-                else if (piece == 'x')  // When the piece is 'x', black background, white text
+                else if (piece == 'o')
                 {
-                    btn.Text = "o";  // Change the text to 'o'
-                    btn.BackColor = Color.Black;  // Set background to black
-                    btn.ForeColor = Color.White;  // Set text color to white
-                }
-                else if (piece == 'o')  // When the piece is 'o', white background, black text
-                {
-                    btn.Text = "o";  // Set the text to 'o'
-                    btn.BackColor = Color.White;  // Set background to white
-                    btn.ForeColor = Color.Black;  // Set text color to black
+                    btn.Text = "o";
+                    btn.BackColor = Color.White;
+                    btn.ForeColor = Color.Black;
                 }
             }
-
-            // Update the form title to show the current player's turn
-            Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
         }
 
         private void BoardButton_Click(object sender, EventArgs e)
@@ -230,7 +224,7 @@ namespace OthelloGameWPF
         private void SwitchPlayer()
         {
             m_CurrentPlayer = m_CurrentPlayer == m_Player1 ? m_Player2 : m_Player1;
-            Text = $"{m_CurrentPlayer.Name}'s Turn";
+            Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
         }
     }
 }

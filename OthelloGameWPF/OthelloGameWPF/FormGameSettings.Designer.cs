@@ -55,6 +55,7 @@
             // 
             // PlayAgainstFriendButton
             // 
+            this.PlayAgainstFriendButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.PlayAgainstFriendButton.Location = new System.Drawing.Point(234, 92);
             this.PlayAgainstFriendButton.Name = "PlayAgainstFriendButton";
             this.PlayAgainstFriendButton.Size = new System.Drawing.Size(211, 61);
@@ -62,9 +63,8 @@
             this.PlayAgainstFriendButton.Text = "Play against your friend";
             this.PlayAgainstFriendButton.UseVisualStyleBackColor = true;
             this.PlayAgainstFriendButton.Click += new System.EventHandler(this.btnPlayAgainstFriend_Click);
-
             // 
-            // GameSettings
+            // FormGameSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -73,7 +73,7 @@
             this.Controls.Add(this.PlayAgainstComputerButton);
             this.Controls.Add(this.BoardSizeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "GameSettings";
+            this.Name = "FormGameSettings";
             this.Text = "Othello - Game Settings";
             this.ResumeLayout(false);
 

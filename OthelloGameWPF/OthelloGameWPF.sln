@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OthelloGameWPF", "OthelloGameWPF\OthelloGameWPF.csproj", "{75D3A5AB-4DC1-4BFD-8844-1EFBA1BF56CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OthelloGameLogic", "Project1\OthelloGameLogic.csproj", "{DBF45D18-C1C8-4295-BEB7-F8ECCA870CE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OthelloGameLogic", "OthelloGameLogic\OthelloGameLogic.csproj", "{DBF45D18-C1C8-4295-BEB7-F8ECCA870CE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -89,7 +89,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project1\OthelloGameLogic.csproj">
+    <ProjectReference Include="..\OthelloGameLogic\OthelloGameLogic.csproj">
       <Project>{dbf45d18-c1c8-4295-beb7-f8ecca870ce7}</Project>
       <Name>OthelloGameLogic</Name>
     </ProjectReference>

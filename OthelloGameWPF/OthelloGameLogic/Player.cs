@@ -1,43 +1,58 @@
-namespace OthelloGameLogic;
-
-public class Player
+namespace OthelloGameLogic
 {
-    private readonly eColor r_Color;
-    private readonly string r_Name;
-    private int m_Score;
+    public class Player
+    {
+        private readonly eColor r_Color;
+        private readonly string r_Name;
+        private int m_Score;
+        private int m_WinsCount = 0;
 
-    public eColor Color
-    {
-        get
+        public eColor Color
         {
-            return r_Color;
+            get
+            {
+                return r_Color;
+            }
         }
-    }
     
-    public string Name
-    {
-        get
+        public string Name
         {
-            return r_Name;
+            get
+            {
+                return r_Name;
+            }
         }
-    }
     
-    public int Score
-    {
-        get
+        public int Score
         {
-            return m_Score;
+            get
+            {
+                return m_Score;
+            }
+            set
+            {
+                m_Score = value;
+            }
         }
-        set
-        {
-            m_Score = value;
-        }
-    }
 
-    public Player(string i_Name, int i_Score, eColor i_Color)
-    {
-        r_Name = i_Name;
-        m_Score = i_Score;
-        r_Color = i_Color;
+        public int WinsCount
+        {
+            get
+            {
+                return m_WinsCount;
+            }
+            set
+            {
+                m_WinsCount = value;
+            }
+        }
+
+        public Player(string i_Name, int i_Score, eColor i_Color)
+        {
+            r_Name = i_Name;
+            m_Score = i_Score;
+            r_Color = i_Color;
+        }
     }
 }
+

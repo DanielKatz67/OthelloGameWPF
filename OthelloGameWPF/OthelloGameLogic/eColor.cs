@@ -1,7 +1,9 @@
-namespace OthelloGameLogic;
-
-public enum eColor
+namespace OthelloGameLogic
 {
-    White = 'o',
-    Black = 'x',
+    public enum eColor
+    {
+        White = 'o',
+        Black = 'x',
+    }
 }
+

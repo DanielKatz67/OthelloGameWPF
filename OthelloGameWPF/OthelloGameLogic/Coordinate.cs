@@ -1,29 +1,31 @@
-namespace OthelloGameLogic;
-
-public struct Coordinate
+namespace OthelloGameLogic
 {
-    private readonly int r_X;
-    private readonly int r_Y;
-    
-    public Coordinate(int i_X, int i_Y)
+    public struct Coordinate
     {
-        r_X = i_X;
-        r_Y = i_Y;
-    }
+        private readonly int r_X;
+        private readonly int r_Y;
     
-    public int X
-    {
-        get
+        public Coordinate(int i_X, int i_Y)
         {
-            return r_X;
+            r_X = i_X;
+            r_Y = i_Y;
         }
-    }
     
-    public int Y
-    {
-        get
+        public int X
         {
-            return r_Y;
+            get
+            {
+                return r_X;
+            }
+        }
+    
+        public int Y
+        {
+            get
+            {
+                return r_Y;
+            }
         }
     }
 }
+

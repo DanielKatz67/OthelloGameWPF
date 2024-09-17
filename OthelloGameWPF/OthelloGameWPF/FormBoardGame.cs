@@ -197,6 +197,7 @@ namespace OthelloGameWPF
 
         private void ShowGameOverMessage()
         {
+            m_Player2 = m_IsPlayingAgainstComputer ? m_Computer : m_Player2;
             m_Board.CalculateScores(m_Player1, m_Player2);
 
             string winnerMessage;

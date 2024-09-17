@@ -91,7 +91,14 @@ namespace OthelloGameWPF
                 Coordinate cell = (Coordinate)btn.Tag;
                 char piece = m_Board.Cell(cell);
 
-                if (piece == 'x')
+                if (piece == '\0')
+                {
+                    btn.Text = "";
+                    btn.BackColor = SystemColors.Control;
+                    btn.ForeColor = SystemColors.Control;
+
+                }
+                else if (piece == 'x')
                 {
                     btn.Text = "o";
                     btn.BackColor = Color.Black;

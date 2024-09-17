@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OthelloGameLogic;
 
@@ -41,7 +35,7 @@ namespace OthelloGameWPF
 
             InitializeBoardButtons(i_BoardSize);
             UpdateBoardUI();
-            HighlightValidMoves();
+            highlightValidMoves();
         }
 
         private void InitializeBoardButtons(int i_BoardSize)
@@ -130,7 +124,7 @@ namespace OthelloGameWPF
             {
                 completeTurn();
 
-                if (m_IsPlayingAgainstComputer && m_CurrentPlayer is Computer)
+                if (m_IsPlayingAgainstComputer)
                 {
                     ((Computer)m_CurrentPlayer).MoveRandomly(m_Board);
                     completeTurn();
@@ -148,13 +142,13 @@ namespace OthelloGameWPF
 
             switchPlayers();
 
-            if (!HighlightValidMoves())
+            if (!highlightValidMoves())
             {
-                ShowGameOverMessage();
+                showGameOverMessage();
             }
         }
 
-        private bool HighlightValidMoves()
+        private bool highlightValidMoves()
         {
             bool hasValidMoves = false;
 
@@ -184,7 +178,6 @@ namespace OthelloGameWPF
                     else
                     {
                         boardButton.Enabled = false;
-                        //boardButton.BackColor = SystemColors.Control;
                     }
                 }
             }
@@ -192,25 +185,26 @@ namespace OthelloGameWPF
             return hasValidMoves;
         }
 
-        private void ShowGameOverMessage()
+        private void showGameOverMessage()
         {
+            string winnerMessage;
+
             m_Board.CalculateScores(m_Player1, m_Player2);
 
-            string winnerMessage;
             if (m_Player1.Score > m_Player2.Score)
             {
-                m_Player1.WinsCount++;
+                m_Player1.WinsCount ++;
                 winnerMessage = $"Black Won!! ({m_Player1.Score}/{m_Player2.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
             }
             else if (m_Player2.Score > m_Player1.Score)
             {
-                m_Player2.WinsCount++;
+                m_Player2.WinsCount ++;
                 winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score}) ({m_Player2.WinsCount}/{m_Player1.WinsCount})";
             }
             else
             {
-                m_Player1.WinsCount++;
-                m_Player2.WinsCount++;
+                m_Player1.WinsCount ++;
+                m_Player2.WinsCount ++;
                 winnerMessage = $"It's a Tie!! ({m_Player1.Score}/{m_Player2.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
             }
 
@@ -221,21 +215,20 @@ namespace OthelloGameWPF
 
             if (result == DialogResult.Yes)
             {
-                RestartGame();
+                restartGame();
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
 
-        private void RestartGame()
+        private void restartGame()
         {
             m_Board = new Board(m_Board.Width, m_Board.Height);
             m_CurrentPlayer = m_Player1;
             UpdateBoardUI();
-
-            HighlightValidMoves();
+            highlightValidMoves();
         }
 
         private bool hasValidMoves(Player i_Player)

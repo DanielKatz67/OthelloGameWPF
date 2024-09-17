@@ -19,6 +19,7 @@ namespace OthelloGameWPF
         private Computer m_Computer;
         private Player m_CurrentPlayer;
         private bool m_IsPlayingAgainstComputer;
+        private bool m_IsValidMovesLeft = true;
 
         public FormBoardGame(int boardSize, bool isPlayingAgainstComputer)
         {
@@ -75,19 +76,110 @@ namespace OthelloGameWPF
             if (m_Board.TrySetCell(m_CurrentPlayer.Color, cell))
             {
                 UpdateBoardUI();
+
                 SwitchPlayer();
+
+                if (!HighlightValidMoves())
+                {
+                    ShowGameOverMessage();
+                }
 
                 if (m_IsPlayingAgainstComputer && m_CurrentPlayer is Computer)
                 {
                     ((Computer)m_CurrentPlayer).MoveRandomly(m_Board);
                     UpdateBoardUI();
                     SwitchPlayer();
+
+                    if (!HighlightValidMoves())
+                    {
+                        ShowGameOverMessage();
+                    }
                 }
             }
             else
             {
                 MessageBox.Show("Invalid move. Try again.", "Invalid Move", MessageBoxButtons.OK);
             }
+        }
+
+        private bool HighlightValidMoves()
+        {
+            bool hasValidMoves = false;
+
+            for (int rowIndex = 0; rowIndex < m_Board.Height; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < m_Board.Width; colIndex++)
+                {
+                    Coordinate cell = new Coordinate(rowIndex, colIndex);
+                    Button boardButton = (Button)boardPanel.GetControlFromPosition(colIndex, rowIndex);
+
+                    if (m_Board.Cell(cell) == '\0')
+                    {
+                        Coordinate?[] validEdges = BoardValidator.IdentifyAllEdges(cell, m_CurrentPlayer.Color, m_Board);
+
+                        if (BoardValidator.CellIsValid(cell, m_CurrentPlayer.Color, validEdges, m_Board))
+                        {
+                            hasValidMoves = true;
+                            boardButton.Enabled = true;
+                            boardButton.BackColor = Color.LightGreen;
+                        }
+                        else
+                        {
+                            boardButton.Enabled = false;
+                            boardButton.BackColor = SystemColors.Control;
+                        }
+                    }
+                    else
+                    {
+                        boardButton.Enabled = false;
+                        boardButton.BackColor = SystemColors.Control;
+                    }
+                }
+            }
+
+            return hasValidMoves;
+        }
+
+        private void ShowGameOverMessage()
+        {
+            m_Board.CalculateScores(m_Player1, m_Player2);
+
+            string winnerMessage;
+            if (m_Player1.Score > m_Player2.Score)
+            {
+                winnerMessage = $"Black Won!! ({m_Player1.Score}/{m_Player2.Score})";
+            }
+            else if (m_Player2.Score > m_Player1.Score)
+            {
+                winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score})";
+            }
+            else
+            {
+                winnerMessage = $"It's a Tie!! ({m_Player1.Score}/{m_Player2.Score})";
+            }
+
+            DialogResult result = MessageBox.Show($"{winnerMessage}\nWould you like another round?",
+                                                  "Othello",
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Information);
+
+            if (result == DialogResult.Yes)
+            {
+                RestartGame();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void RestartGame()
+        {
+            m_Board = new Board(m_Board.Width, m_Board.Height);
+            m_CurrentPlayer = m_Player1;
+            UpdateBoardUI(); 
+
+            HighlightValidMoves();
         }
 
         private void SwitchPlayer()

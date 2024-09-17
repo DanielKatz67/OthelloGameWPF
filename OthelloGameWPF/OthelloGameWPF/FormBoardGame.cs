@@ -16,7 +16,6 @@ namespace OthelloGameWPF
         private Board m_Board;
         private Player m_Player1;
         private Player m_Player2;
-        private Computer m_Computer;
         private Player m_CurrentPlayer;
         private bool m_IsPlayingAgainstComputer;
         private bool m_IsValidMovesLeft = true;
@@ -31,7 +30,7 @@ namespace OthelloGameWPF
 
             if (isPlayingAgainstComputer)
             {
-                m_Computer = new Computer("Computer", 0, eColor.White);
+                m_Player2 = new Computer("Computer", 0, eColor.White);
             }
             else
             {
@@ -197,7 +196,6 @@ namespace OthelloGameWPF
 
         private void ShowGameOverMessage()
         {
-            m_Player2 = m_IsPlayingAgainstComputer ? m_Computer : m_Player2;
             m_Board.CalculateScores(m_Player1, m_Player2);
 
             string winnerMessage;
@@ -271,9 +269,9 @@ namespace OthelloGameWPF
 
         private void switchPlayers()
         {
-            if (m_CurrentPlayer == m_Player1 && hasValidMoves(m_IsPlayingAgainstComputer ? m_Computer : m_Player2))
+            if (m_CurrentPlayer == m_Player1 && hasValidMoves(m_Player2))
             {
-                m_CurrentPlayer = m_IsPlayingAgainstComputer ? (Player)m_Computer : m_Player2;
+                m_CurrentPlayer = m_Player2;
             }
             else if (m_CurrentPlayer != m_Player1 && hasValidMoves(m_Player1))
             {

@@ -58,9 +58,9 @@ namespace OthelloGameWPF
                 {
                     Button btn = new Button
                     {
-                        Dock = DockStyle.Fill,  
-                        Margin = new Padding(1),  
-                        Tag = new Coordinate(rowIndex, colIndex) 
+                        Dock = DockStyle.Fill,
+                        Margin = new Padding(1),
+                        Tag = new Coordinate(rowIndex, colIndex)
                     };
 
                     btn.UseCompatibleTextRendering = true;
@@ -74,11 +74,11 @@ namespace OthelloGameWPF
 
         private void ResizeForm(int boardSize)
         {
-            int buttonSize = 50; 
-            int formPadding = 50; 
+            int buttonSize = 50;
+            int formPadding = 50;
 
             this.Width = boardSize * buttonSize + formPadding;
-            this.Height = boardSize * buttonSize + formPadding + 50; 
+            this.Height = boardSize * buttonSize + formPadding + 50;
 
             boardPanel.Width = boardSize * buttonSize;
             boardPanel.Height = boardSize * buttonSize;
@@ -123,7 +123,7 @@ namespace OthelloGameWPF
             {
                 UpdateBoardUI();
 
-                SwitchPlayer();
+                switchPlayers();
 
                 if (!HighlightValidMoves())
                 {
@@ -134,7 +134,7 @@ namespace OthelloGameWPF
                 {
                     ((Computer)m_CurrentPlayer).MoveRandomly(m_Board);
                     UpdateBoardUI();
-                    SwitchPlayer();
+                    switchPlayers();
 
                     if (!HighlightValidMoves())
                     {
@@ -199,7 +199,7 @@ namespace OthelloGameWPF
             else if (m_Player2.Score > m_Player1.Score)
             {
                 m_Player2.WinsCount++;
-                winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score}) ({m_Player1.WinsCount}/{m_Player2.WinsCount})";
+                winnerMessage = $"White Won!! ({m_Player2.Score}/{m_Player1.Score}) ({m_Player2.WinsCount}/{m_Player1.WinsCount})";
             }
             else
             {
@@ -232,10 +232,46 @@ namespace OthelloGameWPF
             HighlightValidMoves();
         }
 
-        private void SwitchPlayer()
+
+        private bool hasValidMoves(Player i_Player)
         {
-            m_CurrentPlayer = m_CurrentPlayer == m_Player1 ? m_Player2 : m_Player1;
+            bool hasValidMoves = false;
+
+            for (int rowIndex = 0; rowIndex < m_Board.Height; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < m_Board.Width; columnIndex++)
+                {
+                    if (isValidCell(new Coordinate(columnIndex, rowIndex), i_Player))
+                    {
+                        hasValidMoves = true;
+                    }
+                }
+            }
+
+            return hasValidMoves;
+        }
+
+        private void switchPlayers()
+        {
+            if (m_CurrentPlayer == m_Player1 && hasValidMoves(m_IsPlayingAgainstComputer ? m_Computer : m_Player2))
+            {
+                m_CurrentPlayer = m_IsPlayingAgainstComputer ? (Player)m_Computer : m_Player2;
+            }
+            else if (m_CurrentPlayer != m_Player1 && hasValidMoves(m_Player1))
+            {
+                m_CurrentPlayer = m_Player1;
+            }
+
+
             Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
         }
+
+        private bool isValidCell(Coordinate i_CellCoordinate, Player i_Player)
+        {
+            return BoardValidator.CellIsValid(i_CellCoordinate, i_Player.Color,
+                BoardValidator.IdentifyAllEdges(i_CellCoordinate, i_Player.Color, m_Board),
+                m_Board);
+        }
+
     }
 }

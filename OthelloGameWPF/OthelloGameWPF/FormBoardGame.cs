@@ -124,7 +124,7 @@ namespace OthelloGameWPF
             {
                 completeTurn();
 
-                if (m_IsPlayingAgainstComputer)
+                if (m_IsPlayingAgainstComputer && m_CurrentPlayer is Computer)
                 {
                     ((Computer)m_CurrentPlayer).MoveRandomly(m_Board);
                     completeTurn();
@@ -267,6 +267,7 @@ namespace OthelloGameWPF
             else if (m_CurrentPlayer != m_Player1 && hasValidMoves(m_Player1))
             {
                 m_CurrentPlayer = m_Player1;
+
             }
 
 

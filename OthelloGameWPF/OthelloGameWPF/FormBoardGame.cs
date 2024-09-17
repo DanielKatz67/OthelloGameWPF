@@ -20,15 +20,14 @@ namespace OthelloGameWPF
         private bool m_IsPlayingAgainstComputer;
         private bool m_IsValidMovesLeft = true;
 
-        public FormBoardGame(int boardSize, bool isPlayingAgainstComputer)
+        public FormBoardGame(int i_BoardSize, bool i_IsPlayingAgainstComputer)
         {
             InitializeComponent();
-            m_Board = new Board(boardSize, boardSize);
-            m_IsPlayingAgainstComputer = isPlayingAgainstComputer;
-
+            m_Board = new Board(i_BoardSize, i_BoardSize);
+            m_IsPlayingAgainstComputer = i_IsPlayingAgainstComputer;
             m_Player1 = new Player("Player 1", 0, eColor.Black);
 
-            if (isPlayingAgainstComputer)
+            if (i_IsPlayingAgainstComputer)
             {
                 m_Player2 = new Computer("Computer", 0, eColor.White);
             }
@@ -40,84 +39,84 @@ namespace OthelloGameWPF
             m_CurrentPlayer = m_Player1;
             Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
 
-            InitializeBoardButtons(boardSize);
+            InitializeBoardButtons(i_BoardSize);
             UpdateBoardUI();
             HighlightValidMoves();
         }
 
-        private void InitializeBoardButtons(int boardSize)
+        private void InitializeBoardButtons(int i_BoardSize)
         {
             boardPanel.Controls.Clear();
-            boardPanel.RowCount = boardSize;
-            boardPanel.ColumnCount = boardSize;
+            boardPanel.RowCount = i_BoardSize;
+            boardPanel.ColumnCount = i_BoardSize;
 
             boardPanel.RowStyles.Clear();
             boardPanel.ColumnStyles.Clear();
 
-            for (int i = 0; i < boardSize; i++)
+            for (int index = 0; index < i_BoardSize; index++)
             {
-                boardPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / boardSize));
-                boardPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / boardSize));
+                boardPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / i_BoardSize));
+                boardPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / i_BoardSize));
             }
 
-            for (int rowIndex = 0; rowIndex < boardSize; rowIndex++)
+            for (int rowIndex = 0; rowIndex < i_BoardSize; rowIndex++)
             {
-                for (int colIndex = 0; colIndex < boardSize; colIndex++)
+                for (int colIndex = 0; colIndex < i_BoardSize; colIndex++)
                 {
-                    Button btn = new Button
+                    Button button = new Button
                     {
                         Dock = DockStyle.Fill,
                         Margin = new Padding(1),
                         Tag = new Coordinate(rowIndex, colIndex)
                     };
 
-                    btn.UseCompatibleTextRendering = true;
-                    btn.Click += BoardButton_Click;
-                    boardPanel.Controls.Add(btn, colIndex, rowIndex);
+                    button.UseCompatibleTextRendering = true;
+                    button.Click += BoardButton_Click;
+                    boardPanel.Controls.Add(button, colIndex, rowIndex);
                 }
             }
 
-            ResizeForm(boardSize);
+            ResizeForm(i_BoardSize);
         }
 
-        private void ResizeForm(int boardSize)
+        private void ResizeForm(int i_BoardSize)
         {
             int buttonSize = 50;
             int formPadding = 50;
 
-            this.Width = boardSize * buttonSize + formPadding;
-            this.Height = boardSize * buttonSize + formPadding + 50;
+            Width = i_BoardSize * buttonSize + formPadding;
+            Height = i_BoardSize * buttonSize + formPadding + 50;
 
-            boardPanel.Width = boardSize * buttonSize;
-            boardPanel.Height = boardSize * buttonSize;
+            boardPanel.Width = i_BoardSize * buttonSize;
+            boardPanel.Height = i_BoardSize * buttonSize;
         }
 
         private void UpdateBoardUI()
         {
-            foreach (Button btn in boardPanel.Controls)
+            foreach (Button button in boardPanel.Controls)
             {
-                Coordinate cell = (Coordinate)btn.Tag;
-                char piece = m_Board.Cell(cell);
+                Coordinate cell = (Coordinate)button.Tag;
+                char cellSign = m_Board.Cell(cell);
 
-                if (piece == '\0')
+                if (cellSign == '\0')
                 {
-                    btn.Text = "";
-                    btn.BackColor = SystemColors.Control;
-                    btn.ForeColor = SystemColors.Control;
-
-                }
-                else if (piece == 'x')
-                {
-                    btn.Text = "o";
-                    btn.BackColor = Color.Black;
-                    btn.ForeColor = Color.White;
+                    button.Text = "";
+                    button.BackColor = SystemColors.Control;
+                    button.ForeColor = SystemColors.Control;
 
                 }
-                else if (piece == 'o')
+                else if (cellSign == 'x')
                 {
-                    btn.Text = "o";
-                    btn.BackColor = Color.White;
-                    btn.ForeColor = Color.Black;
+                    button.Text = "o";
+                    button.BackColor = Color.Black;
+                    button.ForeColor = Color.White;
+
+                }
+                else if (cellSign == 'o')
+                {
+                    button.Text = "o";
+                    button.BackColor = Color.White;
+                    button.ForeColor = Color.Black;
                 }
             }
         }
@@ -129,30 +128,29 @@ namespace OthelloGameWPF
 
             if (m_Board.TrySetCell(m_CurrentPlayer.Color, cell))
             {
-                UpdateBoardUI();
-
-                switchPlayers();
-
-                if (!HighlightValidMoves())
-                {
-                    ShowGameOverMessage();
-                }
+                completeTurn();
 
                 if (m_IsPlayingAgainstComputer && m_CurrentPlayer is Computer)
                 {
                     ((Computer)m_CurrentPlayer).MoveRandomly(m_Board);
-                    UpdateBoardUI();
-                    switchPlayers();
-
-                    if (!HighlightValidMoves())
-                    {
-                        ShowGameOverMessage();
-                    }
+                    completeTurn();
                 }
             }
             else
             {
                 MessageBox.Show("Invalid move. Try again.", "Invalid Move", MessageBoxButtons.OK);
+            }
+        }
+
+        private void completeTurn()
+        {
+            UpdateBoardUI();
+
+            switchPlayers();
+
+            if (!HighlightValidMoves())
+            {
+                ShowGameOverMessage();
             }
         }
 

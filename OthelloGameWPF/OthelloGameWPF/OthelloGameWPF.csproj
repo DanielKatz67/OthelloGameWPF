@@ -58,7 +58,6 @@
     <Compile Include="FormGameSettings.Designer.cs">
       <DependentUpon>FormGameSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="OtheloGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormBoardGame.resx">

@@ -2,15 +2,8 @@
 {
     partial class FormGameSettings
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.BoardSizeButton = new System.Windows.Forms.Button();
@@ -41,7 +30,7 @@
             this.BoardSizeButton.TabIndex = 0;
             this.BoardSizeButton.Text = "Board Size: 6x6 (click to increase)";
             this.BoardSizeButton.UseVisualStyleBackColor = true;
-            this.BoardSizeButton.Click += new System.EventHandler(this.btnBoardSize_Click);
+            this.BoardSizeButton.Click += new System.EventHandler(this.buttonBoardSize_Click);
             // 
             // PlayAgainstComputerButton
             // 
@@ -51,7 +40,7 @@
             this.PlayAgainstComputerButton.TabIndex = 1;
             this.PlayAgainstComputerButton.Text = "Play against the computer";
             this.PlayAgainstComputerButton.UseVisualStyleBackColor = true;
-            this.PlayAgainstComputerButton.Click += new System.EventHandler(this.btnPlayAgainstComputer_Click);
+            this.PlayAgainstComputerButton.Click += new System.EventHandler(this.buttonPlayAgainstComputer_Click);
             // 
             // PlayAgainstFriendButton
             // 
@@ -62,7 +51,7 @@
             this.PlayAgainstFriendButton.TabIndex = 2;
             this.PlayAgainstFriendButton.Text = "Play against your friend";
             this.PlayAgainstFriendButton.UseVisualStyleBackColor = true;
-            this.PlayAgainstFriendButton.Click += new System.EventHandler(this.btnPlayAgainstFriend_Click);
+            this.PlayAgainstFriendButton.Click += new System.EventHandler(this.buttonPlayAgainstFriend_Click);
             // 
             // FormGameSettings
             // 
@@ -84,6 +73,5 @@
         private System.Windows.Forms.Button BoardSizeButton;
         private System.Windows.Forms.Button PlayAgainstComputerButton;
         private System.Windows.Forms.Button PlayAgainstFriendButton;
-        
     }
 }

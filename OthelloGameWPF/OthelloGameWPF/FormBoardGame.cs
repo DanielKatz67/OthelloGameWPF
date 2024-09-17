@@ -38,23 +38,41 @@ namespace OthelloGameWPF
 
         private void InitializeBoardButtons(int boardSize)
         {
+            boardPanel.Controls.Clear();
             boardPanel.RowCount = boardSize;
             boardPanel.ColumnCount = boardSize;
-            boardPanel.Controls.Clear();
 
             for (int i = 0; i < boardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                boardPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / boardSize));
+                boardPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / boardSize));
+            }
+
+            for (int rowIndex = 0; rowIndex < boardSize; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < boardSize; colIndex++)
                 {
                     Button btn = new Button
                     {
                         Dock = DockStyle.Fill,
-                        Tag = new Coordinate(i, j)
+                        Margin = new Padding(1),
+                        Tag = new Coordinate(rowIndex, colIndex)
                     };
                     btn.Click += BoardButton_Click;
-                    boardPanel.Controls.Add(btn, i, j);
+                    boardPanel.Controls.Add(btn, colIndex, rowIndex);
                 }
             }
+
+            ResizeForm(boardSize);
+        }
+
+        private void ResizeForm(int boardSize)
+        {
+            int buttonSize = 50;  // Set the desired button size
+            int formPadding = 50; // Padding around the buttons for the form borders
+
+            this.Width = boardSize * buttonSize + formPadding;
+            this.Height = boardSize * buttonSize + formPadding + 50; // Add extra height for the title bar and any labels
         }
 
         private void UpdateBoardUI()
@@ -63,9 +81,29 @@ namespace OthelloGameWPF
             {
                 Coordinate cell = (Coordinate)btn.Tag;
                 char piece = m_Board.Cell(cell);
-                btn.Text = piece == '\0' ? "" : piece.ToString();
+
+                if (piece == '\0')
+                {
+                    btn.Text = "";
+                    btn.BackColor = SystemColors.Control;  // Reset to default background
+                    btn.ForeColor = Color.Black;  // Default text color
+                }
+                else if (piece == 'x')  // When the piece is 'x', black background, white text
+                {
+                    btn.Text = "o";  // Change the text to 'o'
+                    btn.BackColor = Color.Black;  // Set background to black
+                    btn.ForeColor = Color.White;  // Set text color to white
+                }
+                else if (piece == 'o')  // When the piece is 'o', white background, black text
+                {
+                    btn.Text = "o";  // Set the text to 'o'
+                    btn.BackColor = Color.White;  // Set background to white
+                    btn.ForeColor = Color.Black;  // Set text color to black
+                }
             }
-            Text = $"{m_CurrentPlayer.Name}'s Turn";
+
+            // Update the form title to show the current player's turn
+            Text = $"Othello - {m_CurrentPlayer.Color}'s Turn";
         }
 
         private void BoardButton_Click(object sender, EventArgs e)
@@ -177,7 +215,7 @@ namespace OthelloGameWPF
         {
             m_Board = new Board(m_Board.Width, m_Board.Height);
             m_CurrentPlayer = m_Player1;
-            UpdateBoardUI(); 
+            UpdateBoardUI();
 
             HighlightValidMoves();
         }

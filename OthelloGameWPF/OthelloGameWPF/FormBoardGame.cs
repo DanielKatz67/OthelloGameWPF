@@ -34,11 +34,11 @@ namespace OthelloGameWPF
 
             InitializeBoardButtons(boardSize);
             UpdateBoardUI();
+            HighlightValidMoves();
         }
 
         private void InitializeBoardButtons(int boardSize)
         {
-            // Clear the previous buttons and setup new proportions
             boardPanel.Controls.Clear();
             boardPanel.RowCount = boardSize;
             boardPanel.ColumnCount = boardSize;
@@ -46,14 +46,12 @@ namespace OthelloGameWPF
             boardPanel.RowStyles.Clear();
             boardPanel.ColumnStyles.Clear();
 
-            // Set the proportions of each row and column to be equal
             for (int i = 0; i < boardSize; i++)
             {
                 boardPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / boardSize));
                 boardPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / boardSize));
             }
 
-            // Create buttons for the board grid
             for (int rowIndex = 0; rowIndex < boardSize; rowIndex++)
             {
                 for (int colIndex = 0; colIndex < boardSize; colIndex++)
@@ -69,20 +67,17 @@ namespace OthelloGameWPF
                 }
             }
 
-            // Resize the form based on the new board size
             ResizeForm(boardSize);
         }
 
         private void ResizeForm(int boardSize)
         {
-            int buttonSize = 50;  // Set the size of each button
-            int formPadding = 50;  // Set padding for the form
+            int buttonSize = 50; 
+            int formPadding = 50; 
 
-            // Calculate the size of the form based on the button size and board size
             this.Width = boardSize * buttonSize + formPadding;
-            this.Height = boardSize * buttonSize + formPadding + 50;  // Extra height for title bar
+            this.Height = boardSize * buttonSize + formPadding + 50; 
 
-            // Adjust the size of the boardPanel to fit the buttons proportionally
             boardPanel.Width = boardSize * buttonSize;
             boardPanel.Height = boardSize * buttonSize;
         }
@@ -182,7 +177,7 @@ namespace OthelloGameWPF
                     else
                     {
                         boardButton.Enabled = false;
-                        boardButton.BackColor = SystemColors.Control;
+                        //boardButton.BackColor = SystemColors.Control;
                     }
                 }
             }

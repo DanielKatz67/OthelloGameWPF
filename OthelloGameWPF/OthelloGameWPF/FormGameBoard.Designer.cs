@@ -1,6 +1,6 @@
 ﻿namespace OthelloGameWPF
 {
-    partial class GameBoardForm
+    partial class FormGameBoard
     {
         /// <summary>
         /// Required designer variable.

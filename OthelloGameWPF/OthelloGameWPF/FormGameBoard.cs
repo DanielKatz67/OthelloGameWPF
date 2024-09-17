@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace OthelloGameWPF
 {
-    public partial class GameBoardForm : Form
+    public partial class FormGameBoard : Form
     {
-        public GameBoardForm()
+        public FormGameBoard()
         {
             InitializeComponent();
         }

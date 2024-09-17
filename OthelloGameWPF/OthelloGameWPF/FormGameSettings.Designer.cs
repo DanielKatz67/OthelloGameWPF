@@ -1,6 +1,6 @@
 ﻿namespace OthelloGameWPF
 {
-    partial class GameSettingsForm
+    partial class FormGameSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -80,5 +80,6 @@
         private System.Windows.Forms.Button BoardSizeButton;
         private System.Windows.Forms.Button PlayAgainstComputerButton;
         private System.Windows.Forms.Button PlayAgainstFriendButton;
+        
     }
 }
